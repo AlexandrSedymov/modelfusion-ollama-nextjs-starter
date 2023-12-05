@@ -1,7 +1,7 @@
 import { ModelFusionTextStream } from "@modelfusion/vercel-ai";
 import { Message, StreamingTextResponse } from "ai";
 import {
-  ChatMLPromptFormat,
+  Llama2PromptFormat,
   TextChatMessage,
   ollama,
   streamText,
@@ -16,16 +16,17 @@ export async function POST(req: Request) {
   const textStream = await streamText(
     ollama
       .TextGenerator({
-        model: "openhermes2.5-mistral",
+        model: "codellama",
         maxCompletionTokens: -1, // infinite generation
         temperature: 0,
         raw: true, // use raw inputs and map to prompt format below
       })
-      .withPromptFormat(ChatMLPromptFormat.chat()), // ChatML prompt
+      .withPromptFormat(Llama2PromptFormat.chat()), // Llama2 prompt
     {
       system:
         "You are an AI chat bot. " +
-        "Follow the user's instructions carefully.",
+        "Follow the user's instructions carefully." +
+        "Answer question step by step.",
 
       // map Vercel AI SDK Message to ModelFusion TextChatMessage:
       messages: messages.filter(

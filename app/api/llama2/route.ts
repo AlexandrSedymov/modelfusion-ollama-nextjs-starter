@@ -30,9 +30,9 @@ export async function POST(req: Request) {
       // map Vercel AI SDK Message to ModelFusion TextChatMessage:
       messages: messages.filter(
         // only user and assistant roles are supported:
-        (message) => message.role === "user" || message.role === "assistant"
+        (message) => message.role === "user" || message.role === "assistant",
       ) as TextChatMessage[],
-    }
+    },
   );
 
   // Return the result using the Vercel AI SDK:
@@ -53,7 +53,7 @@ export async function POST(req: Request) {
         onFinal(completion) {
           console.log("onFinal", completion);
         },
-      }
-    )
+      },
+    ),
   );
 }
