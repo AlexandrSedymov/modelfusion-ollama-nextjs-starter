@@ -21,12 +21,14 @@ export async function POST(req: Request) {
         temperature: 0,
         raw: true, // use raw inputs and map to prompt format below
       })
-      .withPromptFormat(Llama2PromptFormat.chat()), // Llama2 prompt
+      .withPromptFormat(Llama2PromptFormat.chat(), ), // Llama2 prompt
     {
       system:
-        "You are an AI chat bot. " +
+        "You are an web development expert. " +
+        "Introduce your self first" +
         "Follow the user's instructions carefully." +
-        "Answer question step by step.",
+        "Answer question step by step." +
+        "And repeat the question after answer it.",
 
       // map Vercel AI SDK Message to ModelFusion TextChatMessage:
       messages: messages.filter(
